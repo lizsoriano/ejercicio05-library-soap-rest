@@ -43,6 +43,9 @@ def _libro_a_dict(libro):
         "title": libro["title"],
         "price": float(libro["price"]),
         "category": libro["category"],
+        "stock": libro["stock"],
+        "publicationYear": libro["publication_year"],
+        "authors": libro["authors"],
     }
 
 
@@ -65,6 +68,9 @@ def listar_libros_view():
         ET.SubElement(book_el, "title").text = b["title"]
         ET.SubElement(book_el, "price").text = str(b["price"])
         ET.SubElement(book_el, "category").text = b["category"]
+        ET.SubElement(book_el, "stock").text = str(b["stock"])
+        ET.SubElement(book_el, "publicationYear").text = str(b["publicationYear"])
+        ET.SubElement(book_el, "authors").text = b["authors"]
     return _xml_response(root)
 
 
@@ -90,6 +96,9 @@ def obtener_libro_view(isbn):
     ET.SubElement(book_el, "title").text = libro["title"]
     ET.SubElement(book_el, "price").text = str(libro["price"])
     ET.SubElement(book_el, "category").text = libro["category"]
+    ET.SubElement(book_el, "stock").text = str(libro["stock"])
+    ET.SubElement(book_el, "publicationYear").text = str(libro["publicationYear"])
+    ET.SubElement(book_el, "authors").text = libro["authors"]
     return _xml_response(book_el)
 
 

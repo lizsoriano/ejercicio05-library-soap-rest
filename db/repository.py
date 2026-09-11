@@ -184,13 +184,21 @@ def obtener_credencial(conn, usuario):
 # --------------------------------------------------------------------
 
 def listar_libros(conn):
-    """GET /books y GET /books/<isbn> -> fn_listar_libros() (sql/ejercicio05_extension.sql)."""
+    """GET /books y GET /books/<isbn> -> fn_listar_libros() (sql/migracion_libros_completo.sql,
+    que extiende la version original de sql/ejercicio05_extension.sql con
+    stock, publication_year y autor(es))."""
     with conn.cursor() as cur:
-        cur.execute("SELECT book_id, isbn, title, price, category FROM fn_listar_libros()")
+        cur.execute(
+            "SELECT book_id, isbn, title, price, category, stock, publication_year, authors "
+            "FROM fn_listar_libros()"
+        )
         filas = cur.fetchall()
     conn.commit()
     return [
-        {"book_id": f[0], "isbn": f[1], "title": f[2], "price": f[3], "category": f[4]}
+        {
+            "book_id": f[0], "isbn": f[1], "title": f[2], "price": f[3], "category": f[4],
+            "stock": f[5], "publication_year": f[6], "authors": f[7],
+        }
         for f in filas
     ]
 
